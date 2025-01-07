@@ -53,6 +53,7 @@ async function signInUser(email, password) {
     document.getElementById("status").innerHTML = "Error signing in: " + error.message;
 
     if (error.code === 'auth/invalid-login-credentials') {
+      console.log("Account not found, creating new account...")
       document.getElementById("status").innerHTML = "Account not found, creating new account...";
       createUser(email, password);
     }
@@ -64,8 +65,8 @@ function createUser(email, password) {
   createUserWithEmailAndPassword(auth, email, password) // create user with authentication
     .then((userCredential) => {
       const user = userCredential.user;
-      document.getElementById("status").innerHTML = "successfully signed up User. Click login to proceed.";
       setUserRef(user.uid); // set reference to users uid
+      document.getElementById("status").innerHTML = "initializing user...";
       initializeUser(email, password); // actually create user within realtime database
       console.log("User signed up with UID:", user.uid);
     })
@@ -92,6 +93,7 @@ async function initializeUser(email, password) {
       password: password, // ignore this for data flaws TODO:
     }).then(() => {
       console.log("User data initialized successfully!");
+      ocument.getElementById("status").innerHTML = "successfully signed up User. Click login to proceed.";
     }).catch((error) => {
       console.error("Error writing data:", error);
     });
