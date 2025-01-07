@@ -99,7 +99,7 @@ async function initializeUser(email, password) {
       password: password, // ignore this for data flaws TODO:
     }).then(() => {
       console.log("User data initialized successfully!");
-      ocument.getElementById("status").innerHTML = "successfully signed up User. Click login to proceed.";
+      document.getElementById("status").innerHTML = "successfully signed up User. Click login to proceed.";
     }).catch((error) => {
       console.error("Error writing data:", error);
     });
