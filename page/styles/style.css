@@ -159,6 +159,7 @@ footer p {
     font-size: 12px;
 }
 
+
 /* Responsive Design with Media Queries */
 @media (max-width: 768px) {
     h1 {
