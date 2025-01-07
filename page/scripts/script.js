@@ -8,7 +8,6 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
     if (!loggedIn) {
         loggedIn = true;
-        console.log("clicked");
 
         let email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value;

@@ -29,6 +29,7 @@ function loadScreen() {
         textElement.textContent = `Welcome back, ${data.name}.`;
         setTimeout(() => {
             clickToContinue();  // Enable touch listener to proceed with steps after touch
+            // console.log("click now")
         }, 4000); 
     } else {
         console.log("Prompting name. Not yet provided.");
@@ -39,8 +40,11 @@ function loadScreen() {
 
 function clickToContinue() {
     document.getElementById("clickToContinue").style.display = 'block';
+    
 
-    document.body.addEventListener('click', function onTouch() {
+    document.addEventListener('click', function onTouch() {
+
+        // console.log("clicked")
 
         // Add fade-out class to both #welcomeScreen and #loadingSpinner
         document.getElementById("welcomeScreen").classList.add('fadeOut');
@@ -51,16 +55,18 @@ function clickToContinue() {
             steps();
             document.getElementById("welcomeScreen").style.display = 'none';  // Hide after fade-out
             document.getElementById("loadingSpinner").style.display = 'none';  // Hide the spinner too
-        }, 2000);  // Adjust this timeout to match the fade-out duration (1s)
+            window.location.href = "page2.html";
+            // window.location.href = "page\page2.html"
+        }, 3000);  // Adjust this timeout to match the fade-out duration (1s)
 
-        document.body.removeEventListener('click', onTouch);
+        document.removeEventListener('click', onTouch);
     });
 }
 
 
 
 
-document.getElementById("updateButton").addEventListener("click", function() {
+document.getElementById("updateButton").addEventListener("click", async function() {
     const field = document.getElementById("updateData").value;
 
     const newData = {
@@ -68,24 +74,14 @@ document.getElementById("updateButton").addEventListener("click", function() {
         step: 0
     };
 
-    uploadData(newData);
+    await uploadData(newData);
 
-    saveSessionDataLocally()
+    await saveSessionDataLocally()
 
     data = JSON.parse(getData())
 
-    loadScreen()
-
-    // location.reload();
-
-    // const textElement = document.getElementById("text1");
-    // const newText = document.createElement("p");
-    // newText.textContent = field;
-    // textElement.appendChild(newText);
-
     
-
-    // document.getElementById("text1").innerHTML += field
+    loadScreen()
 
 });
 
