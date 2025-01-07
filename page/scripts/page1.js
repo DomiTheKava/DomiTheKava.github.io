@@ -63,7 +63,7 @@ function clickToContinue() {
             steps();
             document.getElementById("welcomeScreen").style.display = 'none';  // Hide after fade-out
             document.getElementById("loadingSpinner").style.display = 'none';  // Hide the spinner too
-            window.location.href = "page2.html";
+            // window.location.href = "page2.html";
             // window.location.href = "page\page2.html"
         }, 3000);  // Adjust this timeout to match the fade-out duration (1s)
 
