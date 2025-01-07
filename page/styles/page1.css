@@ -34,9 +34,9 @@ html {
 /* Enhanced Spinner Styling */
 .loading-spinner {
     position: fixed;  /* Fixed position, stays in place even when scrolling */
-    top: 40%;  /* Center vertically */
-    left: 46.5%;  /* Center horizontally */
-    transform: translate(-50%, -50%);  /* Offset to truly center the spinner */
+    top: 35vh;  /* Center vertically */
+    left: 46.5vw;  /* Center horizontally */
+    transform: translate(-50vh, -50vh);  /* Offset to truly center the spinner */
     width: 60px;
     height: 60px;
     border-radius: 50%;
