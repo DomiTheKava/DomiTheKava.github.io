@@ -1,0 +1,121 @@
+/* Full-screen layout */
+body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;  /* Stack the title and form vertically */
+    font-family: Arial, sans-serif;
+    background-color: #121212;  /* Dark background */
+    color: #e0e0e0;  /* Light text color for dark mode */
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 15%, transparent 25%), 
+    linear-gradient(-45deg, rgba(255, 255, 255, 0.1) 15%, transparent 25%);
+    background-size: 20px 20px;  /* Control the size of the stripes */
+    background-position: 0 0, 10px 10px;  /* Offset the patterns to create a grid effect */
+    overflow: hidden; /* Prevents background from overflowing */
+}
+
+html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;  /* Stack the title and form vertically */
+}
+
+
+p {
+    font-size: 100px;
+    margin-bottom: 20px;
+    text-align: center;
+    /* letter-spacing: 4px; */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 4px solid #af4c4c;
+    width: 0;
+    animation: typing 4s steps(40) 1s forwards, blink 0.75s step-end infinite;
+}
+
+/* Typing animation */
+@keyframes typing {
+    from {
+        width: 0;  /* Start with no width */
+    }
+    to {
+        width: 100%;  /* Expand to full width */
+    }
+}
+
+/* Cursor blinking animation */
+@keyframes blink {
+    0% {
+        border-color: transparent;  /* No cursor at start */
+    }
+    50% {
+        border-color: #ffffff;  /* Green cursor during blinking */
+    }
+    100% {
+        border-color: transparent;  /* No cursor at end */
+    }
+}
+
+/* Footer styling */
+footer {
+    background-color: #1e1e1e;  /* Dark background for footer */
+    color: #e0e0e0;  /* Light text for footer */
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    position: fixed;  /* Fixes footer at the bottom */
+    bottom: 0;  /* Positions it at the very bottom */
+}
+
+/* Footer text */
+footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Update section styling */
+.update-section {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column; /* Stack input and button vertically */
+    align-items: center;
+}
+
+#updateData {
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    border: 2px solid #af4c4c;
+    border-radius: 5px;
+    background-color: #1e1e1e; /* Dark background for input */
+    color: #e0e0e0; /* Light text color for dark mode */
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+#updateData::placeholder {
+    color: #888888; /* Placeholder text color */
+}
+
+#updateButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #af4c4c; /* Matching theme */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+#updateButton:hover {
+    background-color: #d86060; /* Lighter red on hover */
+}
