@@ -26,32 +26,14 @@ let userReference;
 
 let loggedIn = false
 
-// Function to set user reference based on UID after sign in or sign up
-export function setUserRef(userId) {
-  userReference = ref(db, 'users/' + userId);
-  saveUserID(userId) // save user ID -------
-  onValue(userReference, (snapshot) => {
-    const data = snapshot.val();
-    // (Handle user data updates here)
-  });
+
+// Log in or create a new user
+export function login(email, password) {
+  signInUser(email, password);
+  loggedIn = true
 }
 
-// Function to create a new user with email and password
-function createUser(email, password) {
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      document.getElementById("status").innerHTML = "successfully signed up User. Click login to proceed.";
-      setUserRef(user.uid);
-      initializeUser(email, password);
-      console.log("User signed up with UID:", user.uid);
-    })
-    .catch((error) => {
-      console.error("Error signing up:", error.message);
-    });
-}
-
-// Function to sign in a user with email and password
+// sign in user or of not found create with CreateUser
 async function signInUser(email, password) {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -60,8 +42,8 @@ async function signInUser(email, password) {
     document.getElementById("status").innerHTML = "User Logged in";
     setUserRef(user.uid);
 
-    await checkUserData(user.uid); // Await the user data check
-    await saveSessionDataLocally(); // Await the data saving process
+    await checkUserData(user.uid); // check if user exists with a get request, return error invalid login
+    await saveSessionDataLocally(); // save data to device
 
     document.getElementById("status").innerHTML = "Data saved. Redirecting..."; // Show status before redirect
     window.location.href = "page1.html"; // Only redirect after data is saved
@@ -77,7 +59,32 @@ async function signInUser(email, password) {
   }
 }
 
-// Function to initialize user data in the database
+// Function to create a new user with email and password
+function createUser(email, password) {
+  createUserWithEmailAndPassword(auth, email, password) // create user with authentication
+    .then((userCredential) => {
+      const user = userCredential.user;
+      document.getElementById("status").innerHTML = "successfully signed up User. Click login to proceed.";
+      setUserRef(user.uid); // set reference to users uid
+      initializeUser(email, password); // actually create user within realtime database
+      console.log("User signed up with UID:", user.uid);
+    })
+    .catch((error) => {
+      console.error("Error signing up:", error.message);
+    });
+}
+
+// return the reference of the users realtime DB
+export function setUserRef(userId) {
+  userReference = ref(db, 'users/' + userId);
+  saveUserID(userId) // save user ID -------
+  onValue(userReference, (snapshot) => {
+    const data = snapshot.val();
+    // (Handle user data updates here)
+  });
+}
+
+// add user data to the database 
 async function initializeUser(email, password) {
   console.log(email, password)
     await set(userReference, {
@@ -90,17 +97,18 @@ async function initializeUser(email, password) {
     });
 }
 
+
 // Function to check if user data exists after sign in
-async function checkUserData(userId) {
+async function checkUserData(email, password) {
   await get(userReference)
     .then((snapshot) => {
       if (snapshot.exists()) {
         // User data exists
       } else {
         console.log("User first time login... Creating account...");
-        document.getElementById("status").innerHTML = "Account created!";
        // initializeUser(userId, userId, userId);  // Create user if data doesn't exist
-      //  initializeUser();
+        initializeUser(email, password);
+        document.getElementById("status").innerHTML = "Account created!";
       }
     })
     .catch((error) => {
@@ -109,11 +117,7 @@ async function checkUserData(userId) {
     });
 }
 
-// Log in or create a new user
-export function login(email, password) {
-  signInUser(email, password);
-  loggedIn = true
-}
+
 
 // export function getDaata() {
 //   return loggedIn
