@@ -8,7 +8,6 @@ window.onload = function() {
     console.log("Raw data from getData:", rawData);
 
     // Parse data if it exists
-    let data = null;
     try {
         data = JSON.parse(rawData);
         console.log("Parsed data:", data);
@@ -21,7 +20,7 @@ window.onload = function() {
         loadScreen();
     } else {
         console.log('No data found. Redirecting.');
-     //   window.location.href = "page1.html"; // Redirect if no data found
+       window.location.href = "page1.html"; // Redirect if no data found
     }
 };
 
@@ -63,7 +62,7 @@ function clickToContinue() {
             steps();
             document.getElementById("welcomeScreen").style.display = 'none';  // Hide after fade-out
             document.getElementById("loadingSpinner").style.display = 'none';  // Hide the spinner too
-            // window.location.href = "page2.html";
+            window.location.href = "page2.html";
             // window.location.href = "page\page2.html"
         }, 3000);  // Adjust this timeout to match the fade-out duration (1s)
 
