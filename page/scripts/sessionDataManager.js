@@ -17,14 +17,18 @@ const firebaseConfig = {
 
 export function saveData (data) {
     data = JSON.stringify(data)
+    
     sessionStorage.setItem("userData", data)
+    
 }
 
 export function getData() {
     let data = sessionStorage.getItem("userData");
-
+    
     if (data) {
         let openedData = JSON.parse(data);
+        // console.log(data)
+        // console.log("Type of data:", typeof openedData);
         return openedData;
     } else {
         return null;

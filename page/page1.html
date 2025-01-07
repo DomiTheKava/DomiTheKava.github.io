@@ -10,12 +10,20 @@
     <script type="module" src="scripts/sessionDataManager.js"></script>
 </head>
 <body>
-    <p id="asd">Welcome.</p>
-    
-    <!-- Update data section -->
-    <div class="update-section">
-        <input type="text" id="updateData" placeholder="Enter Your Name">
-        <button id="updateButton">Enter</button>
+
+    <div id="welcomeScreen">
+        <p class="loadingText" id="text1">Welcome.</p>
+
+        <div class="loading-spinner" id="loadingSpinner"></div>
+        
+        <div class="update-section">
+            <input type="text" id="updateData" placeholder="Enter Your Name">
+            <button id="updateButton">Enter</button>
+        </div>
+
+        <div id="clickToContinue">
+            <p>click to continue</p>
+        </div>
     </div>
 
     <footer>

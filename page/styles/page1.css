@@ -1,19 +1,25 @@
 /* Full-screen layout */
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
 body {
     height: 100%;
     margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    flex-direction: column; /* Stack the title and form vertically */
     font-family: Arial, sans-serif;
-    background-color: #121212;
-    color: #e0e0e0;
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text color for dark mode */
     background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 15%, transparent 25%), 
                       linear-gradient(-45deg, rgba(255, 255, 255, 0.1) 15%, transparent 25%);
-    background-size: 20px 20px;
-    background-position: 0 0, 10px 10px;
-    overflow: hidden;
+    background-size: 20px 20px; /* Control the size of the stripes */
+    background-position: 0 0, 10px 10px; /* Offset the patterns to create a grid effect */
+    overflow: hidden; /* Prevents background from overflowing */
 }
 
 html {
@@ -22,11 +28,77 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    flex-direction: column; /* Stack the title and form vertically */
+}
+
+/* Enhanced Spinner Styling */
+.loading-spinner {
+    position: fixed;  /* Fixed position, stays in place even when scrolling */
+    top: 40%;  /* Center vertically */
+    left: 46.5%;  /* Center horizontally */
+    transform: translate(-50%, -50%);  /* Offset to truly center the spinner */
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 4px solid #f3f3f3;  /* Light gray background */
+    border-top: 4px solid #af4c4c;  /* Red color for the spinner */
+    box-sizing: border-box;  /* Include border in the element's size calculation */
+    animation: spin 1.5s linear infinite, glow 1.5s ease-in-out infinite;
+    z-index: 1000;  /* Ensure it's on top of other elements */ 
+}
+
+/* Inner spinner with a different color */
+.loading-spinner::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    border-top: 4px solid #af4c4c;  /* Main color for the spinner */
+    animation: spin 1s linear infinite;
+}
+
+/* Outer spinner with a glowing effect */
+.loading-spinner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 4px solid #f3f3f3;  /* Light gray background */
+    animation: spin 2s linear infinite reverse, glow 2s ease-in-out infinite;
+}
+
+/* Spinner spin animation */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Glowing effect */
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 8px #af4c4c, 0 0 20px #af4c4c, 0 0 30px #af4c4c;
+    }
+    50% {
+        box-shadow: 0 0 12px #d86060, 0 0 30px #d86060, 0 0 40px #d86060;
+    }
+    100% {
+        box-shadow: 0 0 8px #af4c4c, 0 0 20px #af4c4c, 0 0 30px #af4c4c;
+    }
 }
 
 /* Dynamic paragraph (typing text) */
-p {
+.loadingText {
     font-size: clamp(20px, 8vw, 100px); /* Adaptive font size */
     margin-bottom: 20px;
     text-align: center;
@@ -35,10 +107,9 @@ p {
     white-space: nowrap;
     border-right: 4px solid #af4c4c;
     width: 0;
-    animation: typing 4s steps(40, end) 1s forwards, blink 0.75s step-end infinite;
+    animation: typing 2s steps(40, end) 1s forwards, blink 0.75s step-end infinite;
 }
 
-/* Typing animation */
 @keyframes typing {
     from {
         width: 0;
@@ -48,7 +119,6 @@ p {
     }
 }
 
-/* Cursor blinking animation */
 @keyframes blink {
     0% {
         border-color: transparent;
@@ -59,6 +129,50 @@ p {
     100% {
         border-color: transparent;
     }
+}
+
+/* Breathing animation for the "click to continue" text */
+#clickToContinue {
+    display: none;
+    color: grey;
+    font-size: 20px;
+    text-align: center;
+    opacity: 0;
+    transform: scale(0.8); 
+    animation: breathAnimation 3s ease-in-out infinite;
+    position: absolute; 
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+}
+
+#welcomeScreen {
+    transition: opacity 2s ease-out; /* Smooth fade-out transition */
+}
+
+/* Fade-out class */
+.fadeOut {
+    opacity: 0;
+    pointer-events: none; /* Optional: Prevent any interaction while fading */
+}
+
+@keyframes breathAnimation {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+}
+
+#clickToContinue.show {
+    display: block;
 }
 
 /* Footer styling */
@@ -84,8 +198,9 @@ footer p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 90%; /* Make it responsive */
-    max-width: 400px; /* Set a max width */
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
 }
 
 #updateData {
@@ -139,4 +254,12 @@ footer p {
     #updateButton {
         padding: 8px;
     }
+}
+
+#welcomeScreen {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
 }
