@@ -41,9 +41,9 @@ function createUser(email, password) {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      document.getElementById("status").innerHTML = "successfully signed up User";
+      document.getElementById("status").innerHTML = "successfully signed up User. Click login to proceed.";
       setUserRef(user.uid);
-      initializeUser(user.uid, email, password);
+      initializeUser(email, password);
       console.log("User signed up with UID:", user.uid);
     })
     .catch((error) => {
@@ -79,6 +79,7 @@ async function signInUser(email, password) {
 
 // Function to initialize user data in the database
 async function initializeUser(email, password) {
+  console.log(email, password)
     await set(userReference, {
       email: email, // TODO:
       password: password, // ignore this for data flaws TODO:
@@ -98,7 +99,8 @@ async function checkUserData(userId) {
       } else {
         console.log("User first time login... Creating account...");
         document.getElementById("status").innerHTML = "Account created!";
-        initializeUser(userId, userId, userId);  // Create user if data doesn't exist
+       // initializeUser(userId, userId, userId);  // Create user if data doesn't exist
+      //  initializeUser();
       }
     })
     .catch((error) => {
