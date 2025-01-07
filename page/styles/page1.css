@@ -1,5 +1,4 @@
 /* Full-screen layout */
-
 * {
     margin: 0px;
     padding: 0px;
@@ -11,148 +10,71 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column; /* Stack the title and form vertically */
+    flex-direction: column;
     font-family: Arial, sans-serif;
-    background-color: #121212; /* Dark background */
-    color: #e0e0e0; /* Light text color for dark mode */
+    background-color: #121212;
+    color: #e0e0e0;
     background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 15%, transparent 25%), 
                       linear-gradient(-45deg, rgba(255, 255, 255, 0.1) 15%, transparent 25%);
-    background-size: 20px 20px; /* Control the size of the stripes */
-    background-position: 0 0, 10px 10px; /* Offset the patterns to create a grid effect */
-    overflow: hidden; /* Prevents background from overflowing */
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    overflow: hidden; /* This disables scrolling */
 }
 
-/* html {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column; /* Stack the title and form vertically 
-} */
-
-/* Enhanced Spinner Styling */
-.loading-spinner {
-    position: fixed;
-    top: 35vh;
-    left: 46.5vw;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #af4c4c;
-    animation: spin 1.5s linear infinite, glow 1.5s ease-in-out infinite;
-    transform: translate(-50%, -50%);
-}
-
-.loading-spinner::before {
-    content: '';
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: 4px solid transparent;
-    border-top: 4px solid #af4c4c;
-    animation: spin 1s linear infinite;
-}
-
-.loading-spinner::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 4px solid #f3f3f3;
-    animation: spin 2s linear infinite reverse, glow 2s ease-in-out infinite;
-}
-
-/* Spinner Animations */
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-@keyframes glow {
-    0% { box-shadow: 0 0 8px #af4c4c, 0 0 20px #af4c4c, 0 0 30px #af4c4c; }
-    50% { box-shadow: 0 0 12px #d86060, 0 0 30px #d86060, 0 0 40px #d86060; }
-    100% { box-shadow: 0 0 8px #af4c4c, 0 0 20px #af4c4c, 0 0 30px #af4c4c; }
-}
-
-/* Dynamic Text Animation */
 .loadingText {
-    font-size: clamp(8vw, 8vw, 100px);
+    font-size: clamp(5vw, 5vw, 50px);
     margin-bottom: 20px;
     text-align: center;
     overflow: hidden;
-    white-space: nowrap;
+    white-space: nowrap; /* Prevents text from wrapping by default */
     border-right: 4px solid #af4c4c;
-    width: 0;
+    width: 0; /* Allow the width to adjust based on the container */
+    max-width: 60%; /* Set max-width to control the max text length */
     animation: typing 2s steps(40, end) 1s forwards, blink 0.75s step-end infinite;
     position: fixed;
     top: 47vh;
     left: 50vw;
     transform: translate(-50%, -50%);
+    word-wrap: break-word; /* Allow wrapping if the text exceeds max-width */
 }
 
 @keyframes typing {
     from { width: 0; }
     to { width: 100%; }
 }
-
 @keyframes blink {
     0%, 100% { border-color: transparent; }
     50% { border-color: #ffffff; }
 }
 
-/* "Click to Continue" Breathing Effect */
+
 #clickToContinue {
-    display: none; /* Initially hidden */
-    color: grey;
-    font-size: 20px;
-    text-align: center;
+    display: none;
+    justify-content: center; /* Horizontally center the content */
+    align-items: center; /* Vertically center the content */
+    text-align: center; /* Center the text inside the <p> element */
     opacity: 0;
     position: fixed;
-    top: 53%; /* Center vertically */
-    left: 43%; /* Center horizontally */
-    transform: translate(-50%, -50%); /* Proper centering */
-    animation: breathAnimation 3s ease-in-out infinite; /* Breathing animation */
-}
-
-#clickToContinue p {
-    margin: 0; /* Remove default margin */
+    top: 53vh; /* Adjusted for better centering */
+    left: 50%; /* This ensures it's horizontally centered */
+    transform: translateX(-50%); /* Offsets the element by half of its width */
+    animation: breathAnimation 3s ease-in-out infinite;
 }
 
 @keyframes breathAnimation {
-    0%, 100% { opacity: 0; transform: scale(0.8); }
-    50% { opacity: 1; transform: scale(1); }
+    0%, 
+    100% { opacity: 0}
+    50% { opacity: 1}
 }
 
-#clickToContinue.show {
-    display: block;
+.fadeOut {
+    opacity: 0;
+    pointer-events: none; /* Optional: Prevent any interaction while fading */
+    transition: opacity 1s ease-out; /* Animates opacity over 1 second */
 }
 
-/* Footer Styling */
-footer {
-    background-color: #1e1e1e;
-    color: #e0e0e0;
-    padding: 10px;
-    text-align: center;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-}
-
-footer p {
-    margin: 0;
-    font-size: clamp(12px, 1vw, 14px);
-}
-
-/* Input and Button Styling */
 #updateData {
+    max-width: 300px;
     width: 30vw;
     padding: 10px;
     margin-bottom: 10px;
@@ -174,6 +96,7 @@ footer p {
 
 #updateButton {
     width: 20vw;
+    max-width: 200px;
     padding: 10px;
     font-size: clamp(14px, 1.5vw, 16px);
     font-weight: bold;
@@ -185,7 +108,7 @@ footer p {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     transition: background-color 0.3s ease;
     position: fixed;
-    top: 59vh;
+    top: calc(55vh + 40px); /* Adjusted for responsiveness */
     left: 50vw;
     transform: translate(-50%, -50%);
 }
@@ -198,13 +121,78 @@ footer p {
 @media (max-width: 768px) {
     body { padding: 10px; }
     footer { padding: 5px; }
-    #updateButton { padding: 8px; }
+    #updateButton { width: 50vw; padding: 8px; }
+    #updateData { width: 80vw; }
 }
 
-/* Fade-out class */
-.fadeOut {
-    opacity: 0;
-    pointer-events: none; /* Optional: Prevent any interaction while fading */
-    transition: opacity 1s ease-out; /* Animates opacity over 1 second */
+
+footer {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
 }
 
+footer p {
+    margin: 0;
+    font-size: clamp(12px, 1vw, 14px);
+}
+
+#alertHeader {
+    background-color: #121212;
+    width: 100vw;
+    text-align: center;
+    padding: 5px;
+}
+
+
+/* loading animation css */
+
+
+/* Spinner with rotating gradient */
+#loadingSpinner {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10vw;
+    height: 10vw;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #520029, #2c0058, #00412d, #5c002e, #5a3600, #00445a);
+    background-size: 600% 600%;
+    animation: spinGradient 9s linear infinite, rotateSpinner 4s linear infinite;
+    opacity: 1;
+}
+
+/* Rotating the gradient with more phases */
+@keyframes spinGradient {
+    0%, 100% {
+        background-position: 0% 50%;
+        opacity: 1;
+    }
+    25% {
+        background-position: 25% 50%;
+        opacity: 0.7;
+    }
+    50% {
+        background-position: 50% 50%;
+        opacity: 1;
+    }
+    75% {
+        background-position: 75% 50%;
+        opacity: 0.7;
+    }
+}
+
+/* Spinner Rotation */
+@keyframes rotateSpinner {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}

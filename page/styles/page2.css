@@ -34,3 +34,10 @@ footer p {
     margin: 0;
     font-size: clamp(12px, 1vw, 14px);
 }
+
+#alertHeader {
+    background-color: #121212;
+    width: 100vw;
+    text-align: center;
+    padding: 5px;
+}

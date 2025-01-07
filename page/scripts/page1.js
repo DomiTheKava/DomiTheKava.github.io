@@ -11,7 +11,8 @@ window.onload = function() {
     if (data) {
         console.log(data);
     } else {
-        console.log('No data found.');
+        console.log('No data found. Redirecting.');
+        window.location.href = "page1.html"; // TODO: redirecting
     }
 
     loadScreen()
@@ -39,7 +40,7 @@ function loadScreen() {
 }
 
 function clickToContinue() {
-    document.getElementById("clickToContinue").style.display = 'block';
+    document.getElementById("clickToContinue").style.display = 'flex';
     
 
     document.addEventListener('click', function onTouch() {
