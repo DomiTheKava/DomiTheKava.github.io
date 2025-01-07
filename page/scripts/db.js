@@ -117,15 +117,15 @@ export function login(email, password) {
 //   return loggedIn
 // }
 
-async function saveSessionDataLocally() {
+export async function saveSessionDataLocally() {
   try {
-    const snapshot = await get(userReference);
+    const snapshot = await get(loadUserRef());
 
-    document.getElementById("status").innerHTML = "Retrieving data...";
+    // document.getElementById("status").innerHTML = "Retrieving data...";
 
     if (snapshot.exists()) {
 
-      document.getElementById("status").innerHTML = "Storing Data...";
+      // document.getElementById("status").innerHTML = "Storing Data...";
 
       const data = snapshot.val();
       console.log("User data exists:", data);
@@ -135,7 +135,7 @@ async function saveSessionDataLocally() {
 
       console.log("Data saved successfully!");
 
-      document.getElementById("status").innerHTML = "Data saved...";
+      // document.getElementById("status").innerHTML = "Data saved...";
 
     } else {
       console.log("No data available");
@@ -150,6 +150,7 @@ export function uploadData(userData) {
   if (userRef) {
     update(userRef, userData)
       .then(() => {
+        // saveSessionDataLocally()
         console.log("User data updated successfully!");
       })
       .catch((error) => {

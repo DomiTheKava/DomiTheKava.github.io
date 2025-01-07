@@ -1,4 +1,4 @@
-import { uploadData } from './db.js';
+import { saveSessionDataLocally, uploadData } from './db.js';
 import { getData } from './sessionDataManager.js'
 
 let data = null
@@ -13,6 +13,11 @@ window.onload = function() {
     } else {
         console.log('No data found.');
     }
+
+    loadScreen()
+}
+
+function loadScreen() {
 
     const textElement = document.getElementById("text1");
     const updateSection = document.querySelector(".update-section");
@@ -58,17 +63,27 @@ function clickToContinue() {
 document.getElementById("updateButton").addEventListener("click", function() {
     const field = document.getElementById("updateData").value;
 
-    const data = {
+    const newData = {
         name: field,
         step: 0
     };
 
-    uploadData(data);
+    uploadData(newData);
 
-    const textElement = document.getElementById("text1");
-    const newText = document.createElement("p");
-    newText.textContent = field;
-    textElement.appendChild(newText);
+    saveSessionDataLocally()
+
+    data = JSON.parse(getData())
+
+    loadScreen()
+
+    // location.reload();
+
+    // const textElement = document.getElementById("text1");
+    // const newText = document.createElement("p");
+    // newText.textContent = field;
+    // textElement.appendChild(newText);
+
+    
 
     // document.getElementById("text1").innerHTML += field
 

@@ -97,6 +97,15 @@ html {
     }
 }
 
+.loading-container {
+    position: relative;
+    height: 100%; /* Ensure it takes full height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* Vertically center content */
+    align-items: center;  /* Horizontally center content */
+}
+
 /* Dynamic paragraph (typing text) */
 .loadingText {
     font-size: clamp(20px, 8vw, 100px); /* Adaptive font size */
@@ -198,7 +207,7 @@ footer p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 90%;
+    width: 100vw;
     max-width: 400px;
     text-align: center;
 }
