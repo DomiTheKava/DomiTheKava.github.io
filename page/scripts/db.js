@@ -71,7 +71,13 @@ function createUser(email, password) {
       console.log("User signed up with UID:", user.uid);
     })
     .catch((error) => {
+
+      if (error.code === 'auth/email-already-in-use') {
+        console.log("incorrect password")
+        document.getElementById("status").innerHTML = "Incorrect Password. Please try again.";
+      } else {
       console.error("Error signing up:", error.message);
+      }
     });
 }
 

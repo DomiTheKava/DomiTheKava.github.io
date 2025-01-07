@@ -4,19 +4,26 @@ import { getData } from './sessionDataManager.js'
 let data = null
 
 window.onload = function() {
-    // load data
-    data = JSON.parse(getData())
+    const rawData = getData();
+    console.log("Raw data from getData:", rawData);
 
-    // Display the data if it exists
-    if (data) {
-        console.log(data);
-    } else {
-        console.log('No data found. Redirecting.');
-        window.location.href = "page1.html"; // TODO: redirecting
+    // Parse data if it exists
+    let data = null;
+    try {
+        data = JSON.parse(rawData);
+        console.log("Parsed data:", data);
+    } catch (e) {
+        console.error("Error parsing data:", e);
     }
 
-    loadScreen()
-}
+    if (data) {
+        console.log("Data exists, proceed to next step");
+        loadScreen();
+    } else {
+        console.log('No data found. Redirecting.');
+     //   window.location.href = "page1.html"; // Redirect if no data found
+    }
+};
 
 function loadScreen() {
 
